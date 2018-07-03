@@ -3,6 +3,7 @@ namespace AxiosDate.Controllers
 open Microsoft.AspNetCore.Mvc
 open System
 
+[<CLIMutable>]
 type Data = {
     F1: DateTime
     F2: string
@@ -16,3 +17,9 @@ type DateController() =
     member __.GetObject() =
         { F1 = DateTime.Now
           F2 = "Hello" }
+
+    [<HttpPost>]
+    member __.SendObject([<FromBody>] data: Data) =
+        printfn "%A" data
+        printfn "%A" (data.F1.ToLocalTime())
+        data
